@@ -12,14 +12,19 @@ router.get('/', (req, res) => {
 		})
 		.catch(err => {
 			console.log(err)
-			res.status(500).json({
-				message: '######--Error retrieving the posts--######'
-			})
+			res.status(500).json({ message: "The posts information could not be retrieved" })
 		})
 })
 
-router.use(function (req, res, next) {
-	res.status(404).send("Sorry can't find that!")
+router.get('/:id', (req, res) => {
+	Post.findById(req.params.id)
+		.then(post => {
+			post ? res.status(200).json(post) : res.status(404).json({ message: "The post with the specified ID does not exist" })
+		}).catch(err => {
+			console.log(err)
+			res.status(500).json({ message: "The post information could not be retrieved" })
+		})
 })
+
 
 module.exports = router
