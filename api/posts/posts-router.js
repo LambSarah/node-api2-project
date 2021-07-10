@@ -1,7 +1,6 @@
 // implement your posts router here
 
 const express = require('express')
-const { restart } = require('nodemon')
 const Post = require('./posts-model')
 
 const router = express.Router()
@@ -46,4 +45,47 @@ router.post('/', (req, res) => {
 	}
 })
 
+// router.put('/:id', (req, res) => {
+// 	const post = Post.find(p => p.id == req.params.id)
+// 	if (!post) {
+// 		res.status(404).json({ message: "The post with the specified ID does not exist" })
+// 	} else {
+// 		let newPost = req.body
+// 		if (!newPost.title || !newPost.contents) {
+// 			res.status(400).json({ message: "Please provide title and contents for the post" })
+// 		} else {
+// 			Post.update(req.params.id, newPost)
+// 				.then(updatedPost => {
+// 					//let count = res.count
+// 					//console.log(count)
+// 					res.status(200).json(updatedPost)
+// 				}).catch(error => {
+// 					console.log(error)
+// 					res.status(500).json({ message: "The post information could not be modified" })
+// 					//	})
+// 				}
+// 				)
+// 		}
+// 	}
+// })
+router.put('/:id', (req, res) => {
+	const changes = req.body;
+	if (!changes.title || !changes.contents) {
+		res.status(400).json({ message: "Please provide title and contents for the post" })
+	} else {
+		Post.update(req.params.id, changes)
+			.then(post => {
+				if (post) {
+					res.status(200).json(post);
+				} else {
+					res.status(404).json({ message: "The post with the specified ID does not exist" });
+				}
+			}).catch(error => {
+				console.log(error);
+				res.status(500).json({
+					message: 'Error updating the post',
+				});
+			});
+	}
+})
 module.exports = router
