@@ -1,20 +1,24 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import './App.css'
 
+import Posts from './components/Posts'
 function App() {
 
   const [posts, setPosts] = useState([])
 
+
   function getPosts() {
-    axios.get('http://localhost:8400/api/posts')
+    axios.get('http://localhost:9400/api/posts')
       .then(response => {
         setPosts(response.data)
+
       })
       .catch(error => console.log(error.message))
   }
   useEffect(() => {
     function getPosts() {
-      axios.get('http:://localhost:8400/api/posts')
+      axios.get('http:://localhost:9400/api/posts')
         .then(response => {
           setPosts(response.data)
         })
@@ -28,17 +32,15 @@ function App() {
     <div className="App">
       <button onClick={getPosts}>Get Posts</button>
       <table>
-        <tr>
-          <th>Title</th>
-          <thead></thead>
-        </tr>
-        {posts.map(post => {
-          return (<div key={post.id}>
-            <tr><td><h2>{post.title}</h2></td>
-              <td>
-                {post.contents}</td></tr>
-          </div>)
-        })}
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Contents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <Posts posts={posts} />
+        </tbody>
       </table>
     </div>
   );
