@@ -5,6 +5,6 @@ const debug = require('debug')
 debug.enable('*')
 
 const port = process.env.PORT || 9400
-server.listen([port, () => {
+server.listen(port, () => {
 	console.log(`#########--Server runnning on http://localhost:${port}--########`)
 })
