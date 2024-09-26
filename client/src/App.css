@@ -1,0 +1,18 @@
+th{
+	font-size:4rem;
+	color:purple;
+	text-align: center;	
+}
+
+td{
+	text-align:center;
+	width:50%;
+}
+table, th, td {
+  border: 1px solid black;
+}
+
+table{
+	width:69%;
+
+}

@@ -74,9 +74,10 @@ describe('server.js', () => {
     }, 500)
     test('[6] responds with a new post', async () => {
       let res = await request(server).post('/api/posts').send(post1)
+      console.log('the post obj: ', post1)
       expect(res.body).toHaveProperty('id')
       expect(res.body).toMatchObject(post1)
-      res = await request(server).post('/api/posts').send(post2)
+      res = await request(server).post(`/api/posts`).send(post2)
       expect(res.body).toHaveProperty('id')
       expect(res.body).toMatchObject(post2)
     }, 500)
